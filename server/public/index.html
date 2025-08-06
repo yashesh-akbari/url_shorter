@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>url shorter</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: Arial, sans-serif;
+      }
+
+      body {
+        background-color: #f9f9f9;
+        padding: 2rem;
+      }
+
+      form {
+        background-color: #ffffff;
+        padding: 2rem;
+        max-width: 500px;
+        margin: 0 auto 2rem;
+        border-radius: 8px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      }
+
+      form div {
+        margin-bottom: 1.2rem;
+      }
+
+      label {
+        display: block;
+        margin-bottom: 0.4rem;
+        font-weight: bold;
+      }
+
+      input {
+        width: 100%;
+        padding: 0.6rem;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+      }
+
+      button {
+        padding: 0.6rem 1.2rem;
+        background-color: #007bff;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        font-weight: bold;
+      }
+
+      button:hover {
+        background-color: #0056b3;
+      }
+
+      #showlist {
+        max-width: 600px;
+        margin: 0 auto;
+        list-style: none;
+        padding: 0;
+      }
+
+      #showlist li {
+        background-color: #ffffff;
+        padding: 1rem;
+        margin-bottom: 0.8rem;
+        border-radius: 6px;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+      }
+
+      #showlist a {
+        color: #007bff;
+        text-decoration: none;
+        font-weight: bold;
+      }
+
+      #showlist p {
+        margin-top: 0.3rem;
+        color: #333;
+        font-size: 0.95rem;
+      }
+    </style>
+  </head>
+  <body>
+    <form action="/shorten" method="post">
+      <div>
+        <label for="url">Enter the url</label>
+        <input type="url" name="user[url]" id="url" required />
+      </div>
+      <div>
+        <label for="shortcode">Enter the shortcode</label>
+        <input
+          type="shortcode"
+          name="user[shortcode]"
+          id="shortcode"
+          required
+        />
+      </div>
+      <button type="submit">submit</button>
+    </form>
+    <ul id="showlist"></ul>
+    <script>
+      let fetchdata = async () => {
+        let res = await fetch("/links");
+        let data = await res.json();
+        console.log(data);
+
+        let list = document.getElementById("showlist");
+        list.innerHTML = "";
+
+        data.forEach((res) => {
+          let li = document.createElement("li");
+          li.innerHTML = `<a href="${res.url}">http://localhost:${res.shortcode}</a><p>${res.url}<p>`;
+          list.appendChild(li);
+        });
+      };
+      fetchdata();
+    </script>
+  </body>
+</html>

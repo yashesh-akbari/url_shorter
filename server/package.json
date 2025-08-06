@@ -1,0 +1,19 @@
+{
+  "name": "url-shortener-server",
+  "type": "module",
+  "scripts": {
+    "dev": "node --env-file=.env src/app.js",
+    "test": "jest --runInBand"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "mongoose": "^8.5.2",
+    "morgan": "^1.10.0"
+  },
+  "devDependencies": {
+    "jest": "^29.7.0",
+    "supertest": "^7.0.0"
+  }
+}
